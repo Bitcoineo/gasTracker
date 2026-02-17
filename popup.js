@@ -1,4 +1,5 @@
 let currentData = null;
+let updateTimer = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
   const toggle = document.getElementById("eip1559Toggle");
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentData = gasData;
     renderData(gasData, isEip1559);
     restartBlockFill();
+    startUpdateTimer();
   }
 
   // Toggle change
@@ -30,6 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const isOn = document.getElementById("eip1559Toggle").checked;
       renderData(currentData, isOn);
       restartBlockFill();
+      startUpdateTimer();
     }
   });
 });
@@ -59,8 +62,6 @@ function renderData(data, isEip1559) {
       el.textContent = formatGwei(data.legacyTiers[i].price);
     }
   }
-
-
 }
 
 function formatGwei(value) {
@@ -74,4 +75,16 @@ function restartBlockFill() {
   fill.style.animation = "none";
   fill.offsetHeight; // trigger reflow to reset
   fill.style.animation = "";
+}
+
+function startUpdateTimer() {
+  if (updateTimer) clearInterval(updateTimer);
+  updateSecondsAgo();
+  updateTimer = setInterval(updateSecondsAgo, 1000);
+}
+
+function updateSecondsAgo() {
+  if (!currentData || !currentData.lastUpdated) return;
+  const seconds = Math.floor((Date.now() - currentData.lastUpdated) / 1000);
+  document.getElementById("updateAgo").textContent = `${seconds}s`;
 }

@@ -97,12 +97,26 @@ h1 {
 
 /* --- Block progress bar --- */
 
+.update-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
 .block-progress {
+  flex: 1;
   height: 4px;
   background: var(--border-dim);
   border-radius: 2px;
-  margin-bottom: 14px;
   overflow: hidden;
+}
+
+.update-ago {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 .block-fill {
