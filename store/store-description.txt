@@ -1,0 +1,37 @@
+ETH Gas Tracker — Real-Time Ethereum Gas Prices
+
+Get instant Ethereum gas price estimates right in your browser toolbar. ETH Gas Tracker pulls live data from the Blocknative Gas Platform API and displays it in a clean, dark-themed popup with three confidence tiers.
+
+THREE GAS TIERS
+See gas prices at three confidence levels:
+- Fast (99%) — near-certain inclusion in the next block
+- Standard (90%) — reliable inclusion for most transactions
+- Slow (70%) — lower cost, may take a few extra blocks
+
+Each tier shows the current gwei price, updated every ~13 seconds (approximately once per Ethereum block).
+
+EIP-1559 SUPPORT
+Toggle between legacy gas prices and EIP-1559 maxFeePerGas with a single switch. Whether you're using a legacy wallet or a modern EIP-1559-aware client, you'll see the right numbers.
+
+LIVE BADGE
+The extension icon displays the current Standard-tier gas price in gwei, color-coded at a glance:
+- Green: under 20 gwei
+- Yellow: 20-50 gwei
+- Orange: 50-100 gwei
+- Red: over 100 gwei
+
+No need to open the popup — just glance at the badge to know if it's a good time to transact.
+
+VISUAL COUNTDOWN
+A progress bar fills between updates, so you always know when fresh data is arriving. A seconds counter shows exact time since last refresh.
+
+ZERO CONFIGURATION
+No API keys, no accounts, no setup. Install and go. The extension uses Blocknative's free Gas Platform API, which requires no authentication.
+
+PRIVACY FIRST
+No data collection, no analytics, no tracking. Your preferences are stored locally on your device. The only network request is a simple GET to Blocknative's public gas price endpoint — no user information is transmitted.
+
+LIGHTWEIGHT
+Built with vanilla JavaScript and CSS. No frameworks, no bundlers, no dependencies. Manifest V3 compliant with minimal permissions.
+
+Built by Bitcoineo. Gas data powered by Blocknative.

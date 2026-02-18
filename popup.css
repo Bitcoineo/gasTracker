@@ -124,7 +124,7 @@ h1 {
   background: var(--accent-green);
   border-radius: 2px;
   transform-origin: left;
-  animation: fillBlock 13s linear forwards;
+  animation: fillBlock 30s linear forwards;
 }
 
 @keyframes fillBlock {
@@ -142,6 +142,7 @@ h1 {
 
 .tier {
   flex: 1;
+  min-height: 125px;
   background: var(--bg-card);
   border-radius: 12px;
   padding: 16px 6px 12px;
@@ -157,29 +158,60 @@ h1 {
   margin-bottom: 2px;
 }
 
+.tier-label {
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
 .tier-unit {
   font-size: 10px;
   font-weight: 600;
   color: var(--text-secondary);
   letter-spacing: 1px;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
-.tier-prob {
-  font-size: 10px;
-  font-weight: 600;
+.tier-confidence {
+  font-size: 9px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* EIP-1559 dual-fee layout */
+
+.tier-fee-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 4px;
+  margin-bottom: 2px;
+}
+
+.tier-fee-label {
+  font-size: 9px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tier-fee-value {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
 }
 
 /* Per-tier border + label colors */
 
 .tier-fast    { border-color: var(--accent-green); }
-.tier-fast    .tier-prob { color: var(--accent-green); }
+.tier-fast    .tier-label { color: var(--accent-green); }
 
 .tier-standard { border-color: var(--accent-yellow); }
-.tier-standard .tier-prob { color: var(--accent-yellow); }
+.tier-standard .tier-label { color: var(--accent-yellow); }
 
 .tier-slow    { border-color: var(--accent-orange); }
-.tier-slow    .tier-prob { color: var(--accent-orange); }
+.tier-slow    .tier-label { color: var(--accent-orange); }
 
 /* --- Error --- */
 

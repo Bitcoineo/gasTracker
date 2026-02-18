@@ -72,7 +72,14 @@ async function fetchGasData() {
     };
 
     await chrome.storage.local.set({ gasData });
-    await updateBadge(legacyTiers[1].price); // Standard (90%) gas price
+
+    // Badge shows Standard tier — max fee in EIP-1559 mode, legacy price otherwise
+    const { eip1559Mode } = await chrome.storage.local.get("eip1559Mode");
+    if (eip1559Mode) {
+      await updateBadge(tiers[1].maxFeePerGas);
+    } else {
+      await updateBadge(legacyTiers[1].price);
+    }
   } catch (err) {
     // Preserve previous data, just add error
     const prev = await chrome.storage.local.get("gasData");
@@ -91,9 +98,15 @@ async function fetchGasData() {
   }
 }
 
+// --- Badge update from popup toggle ---
+
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.type === "updateBadge") updateBadge(msg.value);
+});
+
 // --- Polling (every ~13s ≈ 1 Ethereum block) ---
 
-const POLL_INTERVAL = 13_000;
+const POLL_INTERVAL = 30_000;
 
 async function poll() {
   await fetchGasData();

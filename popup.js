@@ -22,7 +22,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   toggle.addEventListener("change", async (e) => {
     const mode = e.target.checked;
     await chrome.storage.local.set({ eip1559Mode: mode });
-    if (currentData) renderData(currentData, mode);
+    if (currentData) {
+      renderData(currentData, mode);
+      const badgeValue = mode
+        ? currentData.tiers[1].maxFeePerGas
+        : currentData.legacyTiers[1].price;
+      chrome.runtime.sendMessage({ type: "updateBadge", value: badgeValue });
+    }
   });
 
   // Live updates from background
@@ -55,11 +61,22 @@ function renderData(data, isEip1559) {
 
   // Populate 3 tier cards
   for (let i = 0; i < 3; i++) {
-    const el = document.getElementById(`tier${i}Gwei`);
+    const container = document.getElementById(`tier${i}Values`);
     if (isEip1559 && data.tiers) {
-      el.textContent = formatGwei(data.tiers[i].maxFeePerGas);
+      container.innerHTML = `
+        <div class="tier-fee-row">
+          <span class="tier-fee-label">Priority</span>
+          <span class="tier-fee-value">${data.tiers[i].maxPriorityFeePerGas.toFixed(2)}</span>
+        </div>
+        <div class="tier-fee-row">
+          <span class="tier-fee-label">Max Fee</span>
+          <span class="tier-fee-value">${data.tiers[i].maxFeePerGas.toFixed(2)}</span>
+        </div>
+        <div class="tier-unit">GWEI</div>`;
     } else if (data.legacyTiers) {
-      el.textContent = formatGwei(data.legacyTiers[i].price);
+      container.innerHTML = `
+        <div class="tier-gwei">${formatGwei(data.legacyTiers[i].price)}</div>
+        <div class="tier-unit">GWEI</div>`;
     }
   }
 }

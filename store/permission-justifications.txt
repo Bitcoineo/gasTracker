@@ -1,0 +1,21 @@
+Permission Justifications — ETH Gas Tracker
+
+1. alarms
+   The extension uses chrome.alarms to create a recurring 30-second alarm as a safety
+   net for polling. The primary polling loop runs every ~13 seconds via setTimeout, but
+   Manifest V3 service workers can be terminated by Chrome at any time. The alarm ensures
+   the polling chain restarts if the service worker is killed, keeping gas price data
+   current without requiring the user to reopen the popup.
+
+2. storage
+   The extension uses chrome.storage.local to:
+   - Persist the user's EIP-1559 toggle preference across sessions
+   - Cache the latest gas price data so the popup displays instantly when opened,
+     rather than showing a blank state while waiting for the next API response
+
+3. host_permissions: https://api.blocknative.com/*
+   The extension fetches real-time Ethereum gas price estimates from the Blocknative
+   Gas Platform API (GET https://api.blocknative.com/gasprices/blockprices). This is
+   the sole external API the extension communicates with. No user data is sent — only
+   a standard HTTP GET request to a public endpoint. The response contains gas price
+   estimates at various confidence levels, which are displayed to the user.

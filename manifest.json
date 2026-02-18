@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Gas Estimator",
   "version": "1.0.0",
-  "description": "Ethereum gas price estimator with EIP-1559 support",
+  "description": "Real-time Ethereum gas prices in 3 tiers (Fast, Standard, Slow) with EIP-1559 support and a live gwei badge",
   "permissions": ["storage", "alarms"],
   "host_permissions": ["https://api.blocknative.com/*"],
   "background": {
